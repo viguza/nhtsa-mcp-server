@@ -1,0 +1,18 @@
+services:
+  nhtsa-mcp-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: npm run dev
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NHTSA_API_BASE_URL=https://vpic.nhtsa.dot.gov/api
+      - NODE_ENV=development
+    restart: unless-stopped
+    volumes:
+      - ./src:/app/src
+      - ./package.json:/app/package.json
+      - ./package-lock.json:/app/package-lock.json
+      - ./tsconfig.json:/app/tsconfig.json
